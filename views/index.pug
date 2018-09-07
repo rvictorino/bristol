@@ -3,7 +3,10 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
-  form
+  form(
+    method='post'
+    action='/reports/create/'
+  )
     fieldset(class='segmented-control')
       each type in [...Array(7).keys()].map( a => a + 1)
         input(
