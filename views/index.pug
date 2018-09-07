@@ -1,0 +1,16 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to #{title}
+  form
+    fieldset(class='segmented-control')
+      each type in [...Array(7).keys()].map( a => a + 1)
+        input(
+          type='radio'
+          id=`type-${type}`
+          name='type'
+          value=type
+        )
+        label(for=`type-${type}`) #{type}
+    button(type='submit') Go
