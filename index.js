@@ -10,23 +10,29 @@ const REPORTS_COLLECTION = "reports";
 
 app.use(bodyParser.json());
 
-let connection = mongodb.MongoClient.connect(process.env.MONGODB_URI || 'mongodb://test:testtest123@ds145412.mlab.com:45412/bristol', { useNewUrlParser: true });
-
-app.get('/:type', (req, res) => {
+// avoid using / directly (browser may request other things, like favicon.ico)
+app.get('/create/:type', (req, res) => {
 
   const newReport = {
     type: req.params.type
   };
 
-  connection.then( db => {
-    console.log(`Connected to db: ${db}`);
-    return db.collection(REPORTS_COLLECTION).insertOne(newReport);
-  }).then( doc => {
-    res.sendStatus(200);
-  }).catch( err => {
-    console.log(`Unable to connect db: ${err}`);
-    res.sendStatus(500);
-  });
+  let db;
+  let client;
+
+  mongodb.MongoClient.connect(process.env.MONGODB_URI || 'mongodb://test:testtest123@ds145412.mlab.com:45412/bristol', { useNewUrlParser: true })
+    .then( (dbClient) => {
+      client = dbClient;
+      db = dbClient.db(process.env.MONGODB_DBNAME || 'bristol');
+      return db.collection(REPORTS_COLLECTION).insertOne(newReport);
+    }).then( doc => {
+      console.log(`Success inserting: ${doc}`);
+      client.close();
+      res.sendStatus(200);
+    }).catch( err => {
+      console.error(err);
+      res.sendStatus(500);
+    });
 });
 
 app.listen(process.env.PORT || 3000, () => console.log('Server started.'));
