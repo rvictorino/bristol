@@ -1,0 +1,51 @@
+// common
+fieldset.segmented-control {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  justify-content: center;
+  border: none;
+
+  label {
+    flex-grow: 1;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid $primary-color;
+  }
+  label+label {
+    border-top-width: 0;
+  }
+
+  label:hover {
+    font-weight: bold;
+    background: $primary-color;
+    color: $secondary-color;
+  }
+
+  input[type=radio] {
+    display: none;
+  }
+  input[type=radio]:checked+label {
+    font-weight: bold;
+    // invert colors
+    background: $primary-color;
+    color: $secondary-color;
+  }
+}
+
+button {
+  background: $secondary-color;
+  color: $primary-color;
+  border: 4px solid $primary-color;
+  cursor: pointer;
+}
+button:hover {
+  background: $primary-color;
+  color: $secondary-color;
+}
+
+@media only screen and ( max-width : 600px ) {
+  fieldset.segmented-control {
+    flex-direction: column;
+  }
+}
