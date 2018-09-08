@@ -1,19 +1,23 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  form(
-    method='post'
-    action='/reports/create/'
-  )
-    fieldset(class='segmented-control')
-      each type in [...Array(7).keys()].map( a => a + 1)
-        input(
-          type='radio'
-          id=`type-${type}`
-          name='type'
-          value=type
-        )
-        label(for=`type-${type}`) #{type}
-    button(type='submit') Go
+  header
+    h1 Bristol
+    p Note ton caca!
+  section(class='content')
+    form(
+      method='post'
+      action='/reports/create/'
+    )
+      div(class='form-inner')
+        fieldset(class='segmented-control')
+          each type in [...Array(7).keys()].map( a => a + 1)
+            input(
+              type='radio'
+              id=`type-${type}`
+              name='type'
+              value=type
+              required
+            )
+            label(for=`type-${type}`) #{type}
+        button(type='submit') Go
