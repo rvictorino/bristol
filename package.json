@@ -15,7 +15,7 @@
     "pug": "^2.0.3"
   },
   "devDependencies": {
-    "grunt": "^1.0.3",
+    "grunt": "^1.0.4",
     "grunt-contrib-sass": "^1.0.0"
   }
 }
